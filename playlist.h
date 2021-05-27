@@ -4,13 +4,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "song.h"
+#include "sort.h"
+#include "DLList.h"
+#include <unistd.h>
 
 typedef struct {
 	char name[30];
 	int size;
 	char sort;
-	Song ** album;
+	DLinkedList * album;
 } Playlist;
 
 /**
@@ -36,16 +38,16 @@ Song * findSong(char name[30], Playlist * playlist);
  * @param playlist: estrutura da playlist
  * @return
  */
-void freePlaylist(Playlist * playlist);
+Playlist * freePlaylist(Playlist * playlist);
 
-/**
- * @brief Procura o indice de alguma musica
- * 
- * @param name: Nome da musica
- * @param playlist: Estrutura de uma playlist
- * @return indice da musica
- */
-int getIndexSong(char name[30], Playlist * playlist);
+// /**
+//  * @brief Procura o indice de alguma musica
+//  * 
+//  * @param name: Nome da musica
+//  * @param playlist: Estrutura de uma playlist
+//  * @return indice da musica
+//  */
+// int getIndexSong(char name[30], Playlist * playlist);
 
 /**
  * @brief Insere uma musica em uma playlist
@@ -94,7 +96,7 @@ void removeSong(int index, Playlist * playlist);
  * @return
  */
 
-void sort(Playlist * playlist, char sort);
+void sortPlaylist(Playlist * playlist, char sort);
 
 /**
  * @brief Altera o nome de uma playlist ja existente

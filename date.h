@@ -2,6 +2,7 @@
 #define __DATE_H__
 
 #include <time.h>
+#include <stdio.h>
 #include <stdlib.h>
 
 typedef struct tm moment;
@@ -16,6 +17,17 @@ typedef struct tm moment;
  */
 
 moment * createMoment(int day, int month, int year);
+
+moment * getRandomMoment();
+
+/**
+ * @brief Funcao que compara duas estruturas moment
+ * 
+ * @param (moment * moment1) a estrutura a ser comparada
+ * @param (moment * moment2) a estrutura a ser usada para comparar
+ * @return (Char) retorna 1 se moment1 for maior que moment2; e retorna 0 se isso nao for verdade
+ */
+char momentcmp(moment * moment1, moment * moment2);
 
 /**
  * @brief Funcao para imprimir um data

@@ -1,107 +1,118 @@
 #ifndef __CONTROLLER_H__
 #define __CONTROLLER_H__
 
-#include <stdio.h>
-#include "playlist.h"
 #include "collection.h"
 #include "DLList.h"
+#include "playlist.h"
+#include "sort.h"
+#include <stdio.h>
 
-void add (char * namePlaylist);
 
-/**
- * @brief Cria uma playlist
- * @param name: criar uma playlist com essa nome
- * @return
- */
-/**
- * @brief Aparece uma interface para adicionar as informações da música
- * @param namePlaylist: Nome de uma playlist
- * @return
-*/
-
-void create (char namePlaylist[30]);
 
 /**
- * @brief Ordena uma playlist
- * @param playlist: Nome de uma playlist
- * @return
- */
-
-void define_sort (char * namePlaylist);
-
-/**
- * @brief Aparece uma interface para escolher a música a ser removida
+ * @brief Exibe uma interface para incluir informações de uma nova música que será inserida
  *
- * @param playlist: Nome de uma playlist
- * @return
- */
+ * @param (char *) namePlaylist: Nome da playlist
+*/
+void add ( char namePlaylist[30] );
 
-void delete_playlist(char * namePlaylist);
+/**
+ * @brief Cria uma nova playlist
+ *
+ * @param (char *) namePlaylist: Nome da playlist
+ */
+void create ( char namePlaylist[30] );
+
+/**
+ * @brief Define o tipo de ordenação e ordena uma playlist
+ *
+ * @param (char *) namePlaylist: Nome da playlist
+ */
+void define_sort ( char namePlaylist[30] );
+
+
+/**
+ * @brief Deleta uma playlist
+ *
+ * @param (char *) namePlaylist: Nome da playlist
+ */
+void delete_playlist( char namePlaylist[30] );
+
+/**
+ * @brief Lê um índice até ele ser válido
+ *
+ * @param (int) start_range: índice inicial
+ * @param (int) end_range: índice final
+ * @param (int) escape: índice para encerrar a ação
+ * @return (int) índice
+ */
+int getValidIndex( int start_range, int end_range, int escape );
+
+/**
+ * @brief Encontra e retorna uma playlist válida
+ *
+ * @param (char *) namePlaylist: Nome da playlist
+ * @param (Collection *) collection: Endereço de uma estrutura do tipo Collection
+ * @return (Playlist *) Endereço de uma estrutura do tipo Playlist
+ */
+Playlist * getValidPlaylist( char namePlaylist[30], Collection * collection );
 
 /**
  * @brief Exibe todos comandos possíveis
  * 
- * @return
  */
- 
 void help(); 
 
 /**
  * @brief Toca uma playlist
- * @param namePlaylist: Estrutura de uma playlist
- * @return
+
+ * @param (char *) namePlaylist: Estrutura de uma playlist
  */
-void play (char * namePlaylist);
+void play ( char namePlaylist[30] );
 
 /**
- * @brief Exibe uma interface com todas as musicas para a escolha da musica a ser tocada.
+ * @brief Exibe uma interface com as músicas para escolher uma a ser tocada
  * 
- * @param namePlaylist: Estrutura de uma playlist
- * @return
+ * @param (char *) namePlaylist: Estrutura de uma playlist
  */
-void playsong ( char * namePlaylist );
+void playsong ( char namePlaylist[30] );
+
 
 /**
- * @brief Deleta a playlist
+ * @brief Aparece uma interface para escolher a música a ser removida
  *
- * @param playlist: Nome de uma playlist
- * @return
+ * @param (char *) namePlaylist: Nome da playlist que contém a música
  */
 
-void remsong (char * namePlaylist);
+void remsong ( char namePlaylist[30] );
 
 /**
- * @brief Mostra uma lista de músicas para alterar os nomes dessas.
- * @param playlist: Nome de uma playlist
- * @return
+ * @brief Mostra uma lista de músicas para escolher e alterar o nome de uma delas
+
+ * @param (char *) namePlaylist: Nome da playlist que contém a música
  */
  
-void update (char * namePlaylist); 
+void update ( char namePlaylist[30] ); 
 
 /**
- * @brief Atualiza o nome da playlist
+ * @brief Atualiza o nome de uma playlist
  *
- * @param playlist: Nome de uma playlist
- * @param new_name: Novo nome da playlist
- * @return
+ * @param (char *) namePlaylist: Nome de uma playlist
+ * @param (char *) new_name: Novo nome da playlist
  */
-void update_title ( char * namePlaylist, char new_name[30]);
+void update_title ( char namePlaylist[30], char new_name[30] );
 
 /**
  * @brief Exibe todas as playlists
  * 
- * @return
  */
-void view( void );
+void view(void);
 
 /**
  * @brief Exibe informações da Playlist e permite visualizar informações das musicas.
  *
- * @param namePlaylist: Estrutura de uma playlist
- * @return
+ * @param (char *) namePlaylist: Nome da playlist
  */
-void view_playlist ( char * namePlaylist );
-
-void testingDLList();
+void view_playlist ( char namePlaylist[30] );
 
 #endif // __CONTROLLER_H__

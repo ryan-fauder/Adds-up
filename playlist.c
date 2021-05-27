@@ -1,92 +1,100 @@
 #include "playlist.h"
-#include "song.h"
-#include <unistd.h>
+// #include "sort.h"
+#include "DLList.h"
+// #include <unistd.h>
 
 Playlist * createPlaylist(char name[30], int size){
 	Playlist * playlist = (Playlist *) malloc(sizeof(Playlist));
-	strcpy (playlist->name, name);
+	strncpy (playlist->name, name, 28);
  	playlist->size = size;
 	if(!size){
 		size = 0;
 	}
-	playlist->album = (Song **) malloc(sizeof(Song *));
+	playlist->album = createDLList();
 	playlist->sort = 0;
 	return playlist;
 }
 
 Song * findSong(char name[30], Playlist * playlist){
-	int i;
-	for(i = 0; i < playlist->size; i++){
-		if(!strcmp(playlist->album[i]->name, name)){
-			return playlist->album[i];
-		}
-	}
+	int index = searchDLList(playlist->album, name);
+	Song * song = NULL;
+	song = getDLList(playlist->album, index);
+	return song;
+}
+
+Playlist * freePlaylist(Playlist * playlist){
+	playlist->size = 0;
+	freeDLList(playlist->album);
+	playlist->album = NULL;
+	
+	free(playlist);
 	return NULL;
 }
 
-void freePlaylist(Playlist * playlist){
-	int i;
-	for(i = 0; i < (playlist->size); i++) {
-		freeSong(playlist->album[i]);
-		playlist->album[i] = NULL;
-	}
-	playlist->size = 0;
-	free(playlist->album);
-	playlist->album = NULL;
-	free(playlist);
-	playlist = NULL;
-}
-
-int getIndexSong(char name[30], Playlist * playlist){
-	int i;
-	for(i = 0; i < playlist->size; i++){
-		if(!strcmp(playlist->album[i]->name, name)){
-			return i;
-		}
-	}
-	return -1;
-}
+// int getIndexSong(char name[30], Playlist * playlist){
+// 	int i;
+// 	for(i = 0; i < playlist->size; i++){
+// 		if(!strcmp(playlist->album[i]->name, name)){
+// 			return i;
+// 		}
+// 	}
+// 	return -1;
+// }
 
 void insertSong(Song * s, Playlist * playlist){
+	int index;
+	DNode * node = createDNode(s);
 	playlist->size += 1;
-	playlist->album = (Song **) realloc(playlist->album, playlist->size * sizeof(Song *));
-	playlist->album[(playlist->size) - 1] = s;
+	index = findIndexDLList(playlist->album, node, playlist->sort);
+	insertDLList(playlist->album, index, node);
 }
 
 void listenPlaylist(Playlist * playlist){
+	if (playlist->size == 0){
+		printf("Insira musicas para poder ouvi-las!");
+		return;
+	}
 	int i;
-	for(i = 0; i < playlist->size; i++){
-		printf("PLAYLIST %s ", playlist->name);
-		printf("com %d música(s) disponíveis\n\n", playlist->size);
-		playSong(playlist->album[i]);
+	for (i = 0; i < playlist->size; i++){
+		printf("Playlist \"%s\" ", playlist->name);
+		if (playlist->size == 1) printf("com 1 musica disponivel\n\n");
+		else printf("com %d musicas disponiveis\n\n", playlist->size);
+		playSong(getDLList(playlist->album, i));
 		sleep(5);
 		system("clear");
 	}
-	printf("Obrigado por ouvir o Adds Up!\n\n");
-	printf("Por apenas R$ 9,90 por mês você terá acesso\n");
-	printf("ilimitado e sem propagandas! Clique no botão\n");
-	printf("para saber mais\n\n[PREMIUM]\n");
+	printf("Obrigado por ouvir a playlist \"%s\"!\n", playlist->name);
 }
-
+/*
+	DNode * node = playlist->album->head;
+	while(node != NULL){
+		printf("PLAYLIST %s ", playlist->name);
+		printf("com %d música(s) disponíveis\n\n", playlist->size);
+		playSong(node->song);
+		sleep(5);
+		system("clear");
+		node = node->next;
+	}
+*/
 void printSort(Playlist * playlist){
 	switch (playlist->sort) {
 		case 0:
-			printf("Data de adição");
+			printf("Data de adicao");
 			break;
 		case 1:
-			printf("Data de lançamento");
+			printf("Data de lancamento");
 			break;
 		case 2:
-			printf("Alfabética - Nome");
+			printf("Alfabetica - Nome (Crescente)");
 			break;
 		case 3:
-			printf("Alfabética - Nome");
+			printf("Alfabetica - Nome (Decrescente)");
 			break;
 		case 4:
-			printf("Alfabética - Artista/Banda");
+			printf("Alfabetica - Artista/Banda");
 			break;
 		case 5:
-			printf("Alfabética - Gênero");
+			printf("Alfabetica - Genero");
 			break;
 		default:
 			return;
@@ -97,27 +105,29 @@ void printSort(Playlist * playlist){
 Playlist * readPlaylist(FILE * f){
 	int i;
 	Playlist * playlist = (Playlist *) malloc(sizeof(Playlist));
-	playlist->album = ( Song ** ) malloc(sizeof(Song *) * playlist->size);
 	
 	fread(&(playlist->name), sizeof(char), 30, f);
 	fread(&(playlist->size), sizeof(int), 1, f);
 	fread(&(playlist->sort), sizeof(char), 1, f);
-	for(i = 0; i < playlist->size; i++){
-		playlist->album[i] = readSong(f);
-	}
+
+	playlist->album = readDLList(f);
 	return playlist;
 }
 
 void removeSong(int index, Playlist * playlist){
-	int i;
-	for (i = index; i < playlist->size - 1; i++){
-		playlist->album[i] = playlist->album[i + 1];
-	}
+	if (index >= playlist->size || index < 0) return;
 	playlist->size -= 1;
-	playlist->album = (Song **) realloc(playlist->album, playlist->size * sizeof(Song));
+	removeDLList(playlist->album, index);
 }
 
-void sort(Playlist * playlist, char sort);
+void sortPlaylist(Playlist * playlist, char sort){
+	DLinkedList * list;
+	playlist->sort = sort;
+	list = sortDLList(playlist->album, sort);
+	if(list != NULL){
+		playlist->album = list;
+	}
+}
 
 void updateName(char * name, Playlist * playlist){
 	strcpy(playlist->name, name);
@@ -128,7 +138,5 @@ void writePlaylist(FILE * f, Playlist * playlist){
 	fwrite(&(playlist->name), sizeof(char), 30, f);
 	fwrite(&(playlist->size), sizeof(int), 1, f);
 	fwrite(&(playlist->sort), sizeof(char), 1, f);
-	for(i = 0; i < playlist->size; i++){
-		writeSong(f, playlist->album[i]);
-	}
+	writeDLList(f, playlist->album);
 }

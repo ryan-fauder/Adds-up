@@ -78,4 +78,5 @@ void removePlaylist(Collection * list, int index);
 */
 void writeCollection(Collection * list);
 
+void printCollection(Collection * collection);
 #endif // __COLLECTION_H__

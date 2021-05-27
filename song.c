@@ -1,39 +1,72 @@
 #include "song.h"
-#include "duration.h"
-#include "date.h"
-#include <string.h>
 
-// https://stackoverflow.com/questions/13590812/c-freeing-structs
-void freeSong(Song * song){
+void endSong(Song * song){
+	if (song == NULL) return;
+
+	int i, len;
+	len = strlen(song->name) + strlen(song->artistname);
+
+	if (song->duration->hour == 0){
+		printf("%s", song->name);
+		for (i = 0; i < (35 - len); i++) printf(" ");
+		printf("%s\n", song->artistname);
+		printf("──────────────────────────────────⚪\n");
+		printf("◄◄⠀▐▐ ⠀►►⠀⠀ ⠀ ");
+		printDuration(song->duration);
+		printf(" / ");
+	} else {
+		printf("%s", song->name);
+		for (i = 0; i < (42 - len); i++) printf(" ");
+		printf("%s\n", song->artistname);
+		printf("────────────────────────────────────────⚪\n");
+		printf("◄◄⠀▐▐ ⠀►►⠀⠀ ⠀ ");
+		printDuration(song->duration);
+		printf(" / ");
+	}
+
+	printDuration(song->duration);
+	printf("  ───○ 🔊\n");
+}
+
+Song * freeSong(Song * song){
 	freeDuration(song->duration);
-	//song->duration = NULL;
-	//free(song->date_release);
+	song->duration = NULL;
+	free(song->date_release);
 	song->date_release = NULL;
-	//free(song->date_added);
+	free(song->date_added);
 	song->date_added = NULL;
 	
 	free(song);
-	song = NULL;
-	//strcpy(song->genre, "NAO MUDA");
+	return NULL;
+}
+
+double getRandomSize(){
+	double size;
+	int integer, floating;
+
+	srand((unsigned)time(NULL));
+	integer = rand() % 5 + 1;
+	floating = rand() % 99 + 1;
+	size = integer + (floating / (double) 100);
+
+	return size;
 }
 
 Song * newSong(char name[30], char artistname[30], Duration * duration, char genre[30], moment * date_release, double size){
 	Song * song = (Song *) malloc(sizeof(Song));
-	// time_t now;
+
 	song->duration = (Duration * ) malloc(sizeof(Duration));
 	song->date_release = (moment * ) malloc(sizeof(moment));
 	song->date_added = (moment * ) malloc(sizeof(moment));
 
-	strcpy(song->name, name);
-	strcpy(song->artistname, artistname);
-
+	strncpy(song->name, name, 28);
+	strncpy(song->artistname, artistname, 28);
+	strncpy(song->genre, genre, 28);
+	
 	song->duration = duration;
-	strcpy(song->genre, genre);
 
 	*song->date_release = *date_release;
-	
-	//time(&now);
-	//*(song->date_added) = *localtime(&now);
+
 	*(song->date_added) = *createMoment(-1, -1, -1);
 
 	song->size = size;
@@ -43,7 +76,8 @@ Song * newSong(char name[30], char artistname[30], Duration * duration, char gen
 void playSong(Song * song){
 	if (song == NULL) return;
 
-	int i, len = strlen(song->name) + strlen(song->artistname);
+	int i, len;
+	len = strlen(song->name) + strlen(song->artistname);
 
 	if (song->duration->hour == 0){
 		printf("%s", song->name);
@@ -66,13 +100,18 @@ void playSong(Song * song){
 void printSong(Song * song){
 	if (song == NULL) return;
 	
-	printf("\n%10s\t\t%10s\n", song->name, song->artistname);
+	int i, len;
+	len = strlen(song->name) + strlen(song->artistname);
+
+	printf("%s", song->name);
+	for (i = 0; i < (25 - len); i++) printf(" ");
+	printf("%s\n", song->artistname);
 	printf("Genero: %10s\t| ", song->genre);
 	printf("Duracao: ");
 	printDuration(song->duration);
-	printf("\nData de Adição: ");
+	printf("\nData de adicao: ");
 	printDate(song->date_added);
-	printf("\nData de Lancamento: ");
+	printf("\nData de lancamento: ");
 	printDate(song->date_release);
 	printf("\nTamanho: %.2lf MB\n", song->size);
 }
@@ -94,7 +133,14 @@ Song * readSong(FILE * f){
 	return song;
 }
 
-void updateTitle(char name[30], Song * song){
+void summarizeSong(Song * song){
+	printf("%s\t\t", song->name);
+	printf("%s\t", song->artistname);
+	printDuration(song->duration);
+	printf("\n");
+}
+
+void updateNameSong(char name[30], Song * song){
 	strcpy(song->name, name);
 }
 

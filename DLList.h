@@ -1,87 +1,193 @@
 #ifndef __DLList_H__
 #define __DLList_H__
 
+#include "song.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "playlist.h"
 
+/**
+ * @struct Estrutura de um nó duplamente encadeado
+
+ * @attr (struct dnode *) previous: Ponteiro para o nó anterior
+ * @attr (struct dnode *) next: Ponteiro para o próximo nó 
+ * @attr (Song *) song: Estrutura de uma música
+*/
 typedef struct dnode {
 	struct dnode * previous;
 	struct dnode * next;
 	Song * song;
 } DNode;
 
-typedef struct {
+/**
+ * @struct Estrutura de uma lista duplamente encadeada
+
+ * @attr (int) length: Quantidade de nós (elementos) presentes na lista
+ * @attr (DNode *) head: Ponteiro para o primeiro nó da lista
+ * @attr (Dnode *) tail: Ponteiro para o último nó da lista
+*/
+typedef struct dlinkedlist {
 	int length;
 	DNode * head;
 	DNode * tail;
 } DLinkedList;
 
-// Cria uma nova lista
+/**
+ * @brief Cria uma nova lista do tipo DLinkedList
+ *
+ * @return (DLinkedList) Endereço de uma estrutura do tipo DLinkedList
+*/
 DLinkedList * createDLList();
 
-// Cria um nó
+/**
+ * @brief Cria um novo nó
+ *
+ * @param (Song *) song: Endereço de uma estrutura do tipo Song
+ * @return (DNode *) Endereço de uma estrutura do tipo DNode 
+*/
 DNode * createDNode(Song * song);
 
-// Procura a posicao para um novo elemento ser inserido e retorna o index.
-int findIndexDLList(DLinkedList * list, DNode * node, char sort);
-
-// Libera uma lista encadeada
+/**
+ * @brief Libera a memória alocada por uma lista
+ *
+ * @param (DLinkedList) list: Endereço de uma strutura do tipo DLinkedList
+*/
 void freeDLList(DLinkedList * list);
 
-// Libera a memória alocada de um nó
+/**
+ * @brief Libera a memória alocada por um nó
+ *
+ * @param (DNode *) node: Endereço de uma estrutura do tipo DNode
+*/
 void freeDNode(DNode * node);
 
-// Retorna o valor armazenado pela posição
+/**
+ * @brief Retorna o elemento (Song) pela sua posição na lista
+ *
+ * @param (DLinkedList *) list: Endereço de uma estrutura do tipo DLinkedList
+ * @param (int) index: índice
+ * @return (Song *) Endereço de uma estrutura do tipo Song 
+*/
 Song * getDLList(DLinkedList * list, int index);
 
-// Retorna o nó pelo índice
+/**
+ * @brief Retorna o nó pela sua posição na lista
+ *
+ * @param (DLinkedList *) list: Endereço de uma estrutura do tipo DLinkedList
+ * @param (int) index: índice
+ * @return (DNode *) Endereço de uma estrutura do tipo DNode 
+*/
 DNode * getDNodeDLList(DLinkedList * list, int index);
 
-// Inserir um elemento pela posição armazenada na lista
+/**
+ * @brief Inserir um elemento na lista pela sua posição
+ *
+ * @param (DLinkedList *) list: Endereço de uma estrutura do tipo DLinkedList
+ * @param (int) index: índice
+ * @param (DNode *) node: Endereço de uma estrutura do tipo DNode 
+*/
 void insertDLList(DLinkedList * list, int index, DNode * node);
 
-// Une duas listas
-DLinkedList * mergeDLList(DLinkedList * first, DLinkedList * second);
-
-// Realiza o Merge Sort em uma lista
-DLinkedList * mergeSort(DLinkedList * list);
-
-// Imprime os elementos de uma lista
+/**
+ * @brief Imprime os elementos de uma lista na saída padrão
+ *
+ * @param (DLinkedList *) list: Endereço de uma estrutura do tipo DLinkedList
+*/
 void printDLList(DLinkedList * list);
 
-// Imprime os elementos de uma lista na ordem inversa
+/**
+ * @brief Imprime os nomes de cada música de uma lista
+ *
+ * @param (DLinkedList *) list: Endereço de uma estrutura do tipo DLinkedList
+*/
+void printNameDLList(DLinkedList * list);
+
+/**
+ * @brief Imprime os elementos de uma lista na saída padrão na ordem inversa
+ *
+  * @param (DLinkedList *) list: Endereço de uma estrutura do tipo DLinkedList
+*/
 void printReverseDLList(DLinkedList * list);
 
-// Remove o primeiro nó de uma lista
+/**
+ * @brief Remove o primeiro nó de uma lista
+ *
+ * @param (DLinkedList *) list: Endereço de uma estrutura do tipo DLinkedList
+*/
 void popDLList(DLinkedList * list);
 
-// Insere um novo elemento no início da lista
+/**
+ * @brief Insere um novo elemento no início da lista
+ *
+ * @param (DLinkedList *) list: Endereço de uma estrutura do tipo DLinkedList
+ * @param (DNode *) node: Endereço de uma estrutura do tipo DNode
+*/
 void pushDLList(DLinkedList * list, DNode * node);
 
-//Lê uma lista de um arquivo
+/**
+ * @brief Lê uma a estrutura de uma lista de um arquivo
+ *
+ * @param (FILE *) file: Arquivo a ser lido
+ * @return (DLinkedList *) Endereço de uma estrutura do tipo DLinkedList
+*/
 DLinkedList * readDLList(FILE * file);
 
-// Remover um elemento pela posição
+/**
+ * @brief Remover um elemento pela sua posição na lista
+ *
+ * @param (DLinkedList *) list: Endereço de uma estrutura do tipo DLinkedList
+ * @param (int) index: índice
+*/
 void removeDLList(DLinkedList * list, int index);
 
-// Procura o elemento e retorna o index
-int searchDLList(DLinkedList * list, DNode * node);
+/**
+ * @brief Procura um elemento (música) na lista pelo nome e retorna o índice
+ *
+ * @param (DLinkedList *) list: Endereço de uma estrutura do tipo DLinkedList
+ * @param (char *) name: Nome do elemento (música)
+ * @return (int) Índice do elemento
+*/
+int searchDLList(DLinkedList * list, char * name);
 
-// Remove o último nó de uma lista
+/**
+ * @brief Remove o último nó de uma lista
+ *
+ * @param (DLinkedList *) list: Endereço de uma estrutura do tipo DLinkedList
+*/
 void shiftDLList(DLinkedList * list);
 
-// Ordena uma lista encadeada
-void sortDLList(DLinkedList * list, int type);
-
-// Divite uma lista em duas
+/**
+ * @brief Divite uma lista em duas outras listas
+ *
+ * @param (DLinkedList *) list: Endereço da estrutura DLinkedList que será dividida
+ * @param (DLinkedList *) first: Endereço da primeira estrutura DLinkedList formada após a divisão
+ * @param (DLinkedList *) second: Endereço da segunda estrutura DLinkedList formada após a divisão
+ * @param (int) index: índice
+ * @return (tipo) 
+*/
 void splitDLList(DLinkedList * list, DLinkedList * first, DLinkedList * second, int index);
 
-// Insere um valor em uma lista
+/**
+ * @brief Imprime resumos de cada música de uma lista
+ *
+ * @param (DLinkedList *) list: Endereço de uma estrutura do tipo DLinkedList
+*/
+void summarizeDLList(DLinkedList * list);
+
+/**
+ * @brief Insere um novo nó ao final de uma lista
+ *
+ * @param (DLinkedList *) list: Endereço de uma estrutura do tipo DLinkedList
+ * @param (DNode *) node: Endereço de uma estrutura do tipo DNode
+*/
 void unshiftDLList(DLinkedList * list, DNode * node);
 
-// Armazena uma lista em um arquivo
+/**
+ * @brief Escreve a estrutura de uma lista em um arquivo
+ *
+ * @param (FILE *) file: Arquivo onde será armazenada a estrutura
+ * @param (DLinkedList *) list: Endereço de uma estrutura do tipo DLinkedList
+*/
 void writeDLList(FILE * file, DLinkedList * list);
 
 #endif // __DLList_H__

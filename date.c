@@ -21,6 +21,26 @@ moment * createMoment(int day, int month, int year){
 	return date;
 }
 
+moment * getRandomMoment(){
+	moment * date;
+	int day, month, year;
+
+	srand((unsigned)time(NULL));
+	
+	day = rand() % 30 + 1;
+	month = rand() % 12 + 1;
+	year = rand() % 21 + 2000;
+	date = createMoment(day, month, year);
+	return date;
+}
+
+char momentcmp(moment * moment1, moment * moment2){
+	if(difftime(mktime(moment1), mktime(moment2)) > 0){
+		return 1;
+	}
+	return 0;
+}
+
 void printDate(moment * m){
 	char months[12][5] = {
 		"jan", "fev", "mar", "abr", "maio", "jun",

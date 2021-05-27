@@ -11,7 +11,7 @@ void appendPlaylist(Collection * collection, Playlist * play){
 	}
 
 	collection->size += 1;
-	collection->playlists = (Playlist **) realloc(collection->playlists, collection->size * sizeof(Playlist));
+	collection->playlists = (Playlist **) realloc(collection->playlists, collection->size * sizeof(Playlist *));
 	collection->playlists[collection->size - 1] = play;
 }
 
@@ -27,7 +27,7 @@ Playlist * findPlaylist(Collection * collection, char name[30]){
 
 void freeCollection(Collection * collection){
 	int i;
-	for(i = 0; i < collection->size; i++) freePlaylist(collection->playlists[i]);
+	for(i = 0; i < collection->size; i++) collection->playlists[i] = freePlaylist(collection->playlists[i]);
 	free(collection);
 	collection = NULL;
 }
@@ -45,6 +45,17 @@ int getIndexPlaylist(char name[30], Collection * collection){
 		}
 	}
 	return -1;
+}
+
+
+void printCollection(Collection * collection){
+	int i;
+	printf("───────────────────────────────────\n");
+	printf("\t\t\tPLAYLISTS\n");
+	for (i = 0; i < collection->size; i++){
+		printf("• %02d:  %s\n", i+1, collection->playlists[i]->name);
+	}
+	printf("───────────────────────────────────\n");
 }
 
 Collection * readCollection(){
