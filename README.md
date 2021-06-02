@@ -1,5 +1,5 @@
 # Projeto
-<img src="https://i.imgur.com/MWp9dYP.png" alt="Logo Adds up" style="height: 100px; width:100px; radius: 10px;"/>
+<img src="https://i.imgur.com/MWp9dYP.png" alt="Logo Adds up" style="height: 192px; width:108px; border-radius: 50%;"/>
 
 Link do repositório: https://github.com/lLink01/Adds-up
 
