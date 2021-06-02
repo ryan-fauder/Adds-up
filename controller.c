@@ -174,26 +174,23 @@ Playlist * getValidPlaylist( char namePlaylist[30], Collection * collection ){
 }
 
 void help(){
-	printf("_____________________________________________________________\n\n");
-	printf("█⠀⠀█⠀████⠀█⠀⠀⠀⠀████\n");
-	printf("█⠀⠀█⠀█⠀⠀⠀⠀█⠀⠀⠀⠀█⠀⠀█\n");
-	printf("████⠀████⠀█⠀⠀⠀⠀████\n");
-	printf("█⠀⠀█⠀█⠀⠀⠀⠀█⠀⠀⠀⠀█⠀⠀⠀\n");
-	printf("█⠀⠀█⠀████⠀████⠀█⠀⠀⠀\n");
-	printf("─────────────────────────────────────────────────────────────\n\n");
+	printf("%23s\n", "HELP");
+	printf("────────────────────────────────────────────────────\n\n");
+	printf("() = parametros obrigatorios\n");
+	printf("[] = parametros opcionais\n\n");
 	printf("-help: Exibe todos comandos possiveis\n\n");
-	printf("-play (playlist): Toca uma playlist\n\n");
-	printf("-playsong (playlist): Exibe uma interface com todas as musicas para a escolha da musica a ser tocada\n\n");
+	printf("-play [playlist]: Toca uma playlist\n\n");
+	printf("-playsong [playlist]: Exibe uma interface com todas as musicas para a escolha da musica a ser tocada\n\n");
 	printf("-view: Exibe todas as playlists\n\n");
 	printf("-view (playlist): Exibe informacoes da playlist e permite visualizar informacoes das musicas\n\n");
 	printf("-create (nome): Cria uma nova playlist\n\n");
-	printf("-add (playlist): Exibe uma interface para adicionar as informacoes da musica\n\n");
-	printf("-sort (playlist): Ordena a playlist\n\n");
+	printf("-add [playlist]: Exibe uma interface para adicionar as informacoes da musica\n\n");
+	printf("-sort [playlist]: Ordena a playlist\n\n");
 	printf("-update (playlist): Exibe uma lista de musicas para alterar o nome de uma delas\n\n");
 	printf("-update (playlist) (novo nome): Atualiza o nome da playlist\n\n");
-	printf("-delete (playlist): Deleta a playlist\n\n");
-	printf("-remsong (playlist): Exibe uma interface para escolher a musica a ser removida\n\n");
-	printf("─────────────────────────────────────────────────────────────\n\n");
+	printf("-delete [playlist]: Deleta a playlist\n\n");
+	printf("-remsong [playlist]: Exibe uma interface para escolher a musica a ser removida\n\n");
+	printf("────────────────────────────────────────────────────\n\n");
 }
 
 void play ( char namePlaylist[30] ){	
@@ -240,7 +237,7 @@ void playsong ( char namePlaylist[30] ){
 		return;
 	}
 
-	printf("\nDigite o indice para escolher a musica a ser tocada:\n");
+	printf("Digite o indice para escolher a musica a ser tocada:\n\n");
 	summarizeDLList(playlist->album);
 	printf("\nDigite 0 para sair\n");
 	index = getValidIndex(1, playlist->size, 0) - 1;
@@ -320,7 +317,8 @@ void update ( char namePlaylist[30] ){
 		return;
 	}
 
-	printf("Lista de musicas da playlist \"%s\":\n", playlist->name);
+	printf("-- Alterar o nome --\n");
+	printf("Lista de musicas da playlist \"%s\":\n\n", playlist->name);
 	summarizeDLList(playlist->album);
 	printf("\nEscolha o indice da musica: (0 para sair) ");
 	index = getValidIndex(1, playlist->size, 0) - 1;

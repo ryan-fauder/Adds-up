@@ -24,7 +24,7 @@ typedef struct {
  * @param name: Estrutura da Playlist
  * @return
 */
-void appendPlaylist(Collection * collection, Playlist * play);
+void appendPlaylist( Collection * collection, Playlist * play );
 
 /**
  * @brief Captura a estrutura de uma playlist
@@ -33,14 +33,14 @@ void appendPlaylist(Collection * collection, Playlist * play);
  * @param (char *) nome
  * @return Endereço de uma estrutura do tipo Playlist
 */
-Playlist * findPlaylist(Collection * collection, char name[30]);
+Playlist * findPlaylist( Collection * collection, char name[30] );
 
 /**
  * @brief Libera a memoria da Collection
  *
  * @param (Collection *) Estrutura da Collection
 */
-void freeCollection(Collection * collection);
+void freeCollection( Collection * collection );
 
 /**
  * @brief Acessa o arquivo de Data
@@ -49,7 +49,7 @@ void freeCollection(Collection * collection);
  * @return (FILE *) ponteiro de arquivo
 */
 
-FILE * getDataFile(char * format);
+FILE * getDataFile( char * format );
 
 /**
  * @brief Encontra o indice de uma playlist
@@ -58,21 +58,20 @@ FILE * getDataFile(char * format);
  * @param (Collection *) Estrutura da Collection
  * @return Valor do indice
 */
-int getIndexPlaylist(char name[30], Collection * collection);
+int getIndexPlaylist( char name[30], Collection * collection );
 
 /**
  * @brief Imprime o nome das playlists presentes no arquivo
  *
  * @param (Collection *) Endereço de uma estrutura Collection
 */
-void printCollection(Collection * collection);
+void printCollection( Collection * collection );
 
 /**
  * @brief Faz a leitura de coleção em um arquivo
  *
  * @return (Collection *) Endereço de uma estrutura Collection
 */
-
 Collection * readCollection(void);
 
 /**
@@ -82,13 +81,13 @@ Collection * readCollection(void);
  * @param name: Nome da playlist a ser apagada
  * @return
 */
-void removePlaylist(Collection * list, int index);
+void removePlaylist( Collection * list, int index );
 
 /**
  * @brief Escreve a coleção em um arquivo
  *
  * @param (Collection *) Endereço de uma estrutura Collection
 */
-void writeCollection(Collection * list);
+void writeCollection( Collection * list );
 
 #endif // __COLLECTION_H__

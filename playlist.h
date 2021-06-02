@@ -43,18 +43,9 @@ Song * findSong(char name[30], Playlist * playlist);
  * @brief Libera a memoria de uma estrutura de playlist
  * 
  * @param playlist: estrutura da playlist
- * @return
+ * @return Playlist vazia
  */
 Playlist * freePlaylist(Playlist * playlist);
-
-// /**
-//  * @brief Procura o indice de alguma musica
-//  * 
-//  * @param name: Nome da musica
-//  * @param playlist: Estrutura de uma playlist
-//  * @return indice da musica
-//  */
-// int getIndexSong(char name[30], Playlist * playlist);
 
 /**
  * @brief Insere uma musica em uma playlist
@@ -102,7 +93,6 @@ void removeSong(int index, Playlist * playlist);
  * @param sort: Tipo de ordenacao
  * @return
  */
-
 void sortPlaylist(Playlist * playlist, char sort);
 
 /**

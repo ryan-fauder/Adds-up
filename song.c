@@ -106,7 +106,7 @@ void printSong(Song * song){
 	printf("%s", song->name);
 	for (i = 0; i < (25 - len); i++) printf(" ");
 	printf("%s\n", song->artistname);
-	printf("Genero: %10s\t| ", song->genre);
+	printf("Genero: %-10s\t| ", song->genre);
 	printf("Duracao: ");
 	printDuration(song->duration);
 	printf("\nData de adicao: ");
@@ -134,8 +134,8 @@ Song * readSong(FILE * f){
 }
 
 void summarizeSong(Song * song){
-	printf("%s\t\t", song->name);
-	printf("%s\t\t", song->artistname);
+	printf("%-15s", song->name);
+	printf("%-10s\t\t", song->artistname);
 	printDuration(song->duration);
 	printf("\n");
 }

@@ -50,7 +50,7 @@ int getIndexPlaylist(char name[30], Collection * collection){
 void printCollection(Collection * collection){
 	int i;
 	printf("───────────────────────────────────\n");
-	printf("\t\t\tPLAYLISTS\n");
+	printf("%22s\n", "PLAYLISTS");
 	for (i = 0; i < collection->size; i++){
 		printf("• %02d:  %s\n", i+1, collection->playlists[i]->name);
 	}

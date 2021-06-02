@@ -5,6 +5,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/**
+ * @brief Define a estrutura tm como moment
+**/ 
 typedef struct tm moment;
 
 /**
@@ -15,7 +18,6 @@ typedef struct tm moment;
  * @param (int) ano
  * @return (moment *) o endereco da estrutura
  */
-
 moment * createMoment(int day, int month, int year);
 
 /**

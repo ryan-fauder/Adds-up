@@ -1,7 +1,5 @@
 #include "playlist.h"
-// #include "sort.h"
 #include "DLList.h"
-// #include <unistd.h>
 
 Playlist * createPlaylist(char name[30], int size){
 	Playlist * playlist = (Playlist *) malloc(sizeof(Playlist));
@@ -31,16 +29,6 @@ Playlist * freePlaylist(Playlist * playlist){
 	return NULL;
 }
 
-// int getIndexSong(char name[30], Playlist * playlist){
-// 	int i;
-// 	for(i = 0; i < playlist->size; i++){
-// 		if(!strcmp(playlist->album[i]->name, name)){
-// 			return i;
-// 		}
-// 	}
-// 	return -1;
-// }
-
 void insertSong(Song * s, Playlist * playlist){
 	int index;
 	DNode * node = createDNode(s);
@@ -65,17 +53,7 @@ void listenPlaylist(Playlist * playlist){
 	}
 	printf("Obrigado por ouvir a playlist \"%s\"!\n", playlist->name);
 }
-/*
-	DNode * node = playlist->album->head;
-	while(node != NULL){
-		printf("PLAYLIST %s ", playlist->name);
-		printf("com %d música(s) disponíveis\n\n", playlist->size);
-		playSong(node->song);
-		sleep(5);
-		system("clear");
-		node = node->next;
-	}
-*/
+
 void printSort(Playlist * playlist){
 	switch (playlist->sort) {
 		case 0:

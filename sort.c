@@ -4,12 +4,10 @@ char artistCmp(Song * song1, Song * song2){
 	return strdiff(song1->artistname, song2->artistname);
 }
 
-// Se song1->date_added > song2->date_added, retorna 1. Caso contrario, retorna 0
 char dateAddedCmp(Song * song1, Song * song2){
 	return !momentcmp(song1->date_added, song2->date_added);
 }
 
-// Se song1->date_release > song2->date_release, retorna 1. Caso contrario, retorna 0
 char dateReleaseCmp(Song * song1, Song * song2){
 	return momentcmp(song1->date_release, song2->date_release);
 }

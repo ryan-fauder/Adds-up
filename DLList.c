@@ -240,7 +240,7 @@ void summarizeDLList(DLinkedList * list){
 	int index = 1;
 
 	while(current != NULL){
-		printf("%d - ", index);
+		printf("%2d - ", index);
 		summarizeSong(current->song);
 		
 		current = current->next;

@@ -90,7 +90,6 @@ void remsong ( char namePlaylist[30] );
 
  * @param (char *) namePlaylist: Nome da playlist que contém a música
  */
- 
 void update ( char namePlaylist[30] ); 
 
 /**
