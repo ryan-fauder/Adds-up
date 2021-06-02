@@ -8,6 +8,13 @@
 #include "DLList.h"
 #include <unistd.h>
 
+/**
+ * @struct Estrutura de uma playlist
+
+ * @attr (char *) name: Nome da playlist
+ * @attr (int) size: Quantidade de músicas
+ * @attr (DLinkedList *) album: Lista duplamente encadeada que contém as músicas
+*/
 typedef struct {
 	char name[30];
 	int size;

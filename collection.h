@@ -6,6 +6,12 @@
 #include "playlist.h"
 #include <dirent.h>
 
+/**
+ * @struct Estrutura que armazena as playlists - coleção
+
+ * @attr (Playlist **) playlists: Endereço para as estruturas do tipo Playlist
+ * @attr (int) size: Quantidade de playlists
+*/
 typedef struct {
 	Playlist ** playlists;
 	int size;
@@ -55,6 +61,13 @@ FILE * getDataFile(char * format);
 int getIndexPlaylist(char name[30], Collection * collection);
 
 /**
+ * @brief Imprime o nome das playlists presentes no arquivo
+ *
+ * @param (Collection *) Endereço de uma estrutura Collection
+*/
+void printCollection(Collection * collection);
+
+/**
  * @brief Faz a leitura de coleção em um arquivo
  *
  * @return (Collection *) Endereço de uma estrutura Collection
@@ -78,5 +91,4 @@ void removePlaylist(Collection * list, int index);
 */
 void writeCollection(Collection * list);
 
-void printCollection(Collection * collection);
 #endif // __COLLECTION_H__

@@ -8,7 +8,7 @@ void add ( char namePlaylist[30] ){
 	double size;
 	int hour, min, sec, day, month, year;
 	
-	printf("-- Adicionar uma musica --\n");
+	printf("-- Inserindo uma musica --\n");
 	playlist = getValidPlaylist(namePlaylist, collection);
 	if (playlist == NULL){
 		freeCollection(collection);

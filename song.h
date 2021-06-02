@@ -44,6 +44,11 @@ void endSong(Song * song);
 */
 Song * freeSong(Song * song);
 
+/**
+ * @brief Gera um número aleatório para representar o tamanho de uma música na memória
+ * 
+ * @return (double) Número flutuante
+*/
 double getRandomSize();
 
 /**

@@ -47,7 +47,6 @@ int getIndexPlaylist(char name[30], Collection * collection){
 	return -1;
 }
 
-
 void printCollection(Collection * collection){
 	int i;
 	printf("───────────────────────────────────\n");

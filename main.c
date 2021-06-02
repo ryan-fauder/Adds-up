@@ -6,7 +6,7 @@ int main(int argc, char *argv[]){
 	char arg2[30], arg3[30];
 	
 	if (argc > 3 || argc == 0) {
-		printf("Comando inválido\n");
+		printf("Comando invalido!\n");
 		return 0;
 	}
 
@@ -36,7 +36,7 @@ int main(int argc, char *argv[]){
 			define_sort(NULL);
 		}
 		else{
-			printf("Comando inválido\n");
+			printf("Comando invalido!\n");
 		}
 	} else if (argc == 2){
 		strncpy(arg2, argv[2], 28);
@@ -69,7 +69,7 @@ int main(int argc, char *argv[]){
 			add(arg2);
 		}
 		else{
-			printf("Comando inválido\n");
+			printf("Comando invalido!\n");
 		}
 	} 
 	else if (argc == 3){
@@ -80,7 +80,7 @@ int main(int argc, char *argv[]){
 			update_title(arg2, arg3);
 		}
 		else{
-			printf("Comando inválido\n");
+			printf("Comando invalido!\n");
 		}
 	}
 	

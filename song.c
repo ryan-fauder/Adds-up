@@ -135,7 +135,7 @@ Song * readSong(FILE * f){
 
 void summarizeSong(Song * song){
 	printf("%s\t\t", song->name);
-	printf("%s\t", song->artistname);
+	printf("%s\t\t", song->artistname);
 	printDuration(song->duration);
 	printf("\n");
 }

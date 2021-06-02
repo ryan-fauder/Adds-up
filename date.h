@@ -18,6 +18,11 @@ typedef struct tm moment;
 
 moment * createMoment(int day, int month, int year);
 
+/**
+ * @brief Cria uma estrutura do tipo Moment com valores aleatórios
+ * 
+ * @reeturn (moment *) duration: Endereço de uma estrutura do tipo moment
+ */
 moment * getRandomMoment();
 
 /**
