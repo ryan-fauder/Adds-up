@@ -67,5 +67,5 @@ gcc *.c -lm -o main
 ## Observação
 
 &ensp;&ensp;O arquivo Data.bin armazena todos os registros de playlists. Ele foi entregue 
-com informações cadastradas. Então, caso seja necessário para limpar os registros, 
+com informações cadastradas. Então, caso seja necessário limpar os registros, 
 basta excluir o arquivo. O arquivo será gerado novamente ao executar o programa.
